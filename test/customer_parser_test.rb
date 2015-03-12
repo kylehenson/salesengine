@@ -19,7 +19,7 @@ class CustomerParserTest < Minitest::Test
 
     customers = parser.parse
     first = customers.first
-  
+
     assert_equal Customer, first.class
     assert_equal 1 ,first.id
   end
