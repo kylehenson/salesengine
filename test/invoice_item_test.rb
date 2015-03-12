@@ -10,7 +10,7 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_invoice_has_invoice_id_and_id
-    file = CSV.open("./support/invoice_items.csv", headers: true, header_converters: :symbol)
+    file = CSV.open("./test/support/invoice_items.csv", headers: true, header_converters: :symbol)
     first = file.first
     invoice_item = InvoiceItem.new(first)
     assert_equal 1, invoice_item.id
@@ -18,7 +18,7 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_invoice_has_other_invoice_attributes
-    file = CSV.open("./support/invoice_items.csv", headers: true, header_converters: :symbol)
+    file = CSV.open("./test/support/invoice_items.csv", headers: true, header_converters: :symbol)
     first = file.first
     invoice_item = InvoiceItem.new(first)
     assert_equal '539', invoice_item.item_id

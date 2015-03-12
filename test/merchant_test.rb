@@ -10,7 +10,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_merchant_has_name_and_id
-    file = CSV.open("./support/merchants.csv", headers: true, header_converters: :symbol)
+    file = CSV.open("./test/support/merchants.csv", headers: true, header_converters: :symbol)
     first = file.first
     merchant = Merchant.new(first)
     assert_equal 1, merchant.id
@@ -18,7 +18,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_merchant_has_other_merchant_attributes
-    file = CSV.open("./support/merchants.csv", headers: true, header_converters: :symbol)
+    file = CSV.open("./test/support/merchants.csv", headers: true, header_converters: :symbol)
     first = file.first
     merchant = Merchant.new(first)
     created_time = '2012-03-27 14:53:59 UTC'
