@@ -11,7 +11,7 @@ class CustomerParser
   def parse
     file = CSV.open(filename, headers: true, header_converters: :symbol)
     file.map do |line|
-      Customer.new(line)
+      Customer.new(line, self)
     end
   end
 

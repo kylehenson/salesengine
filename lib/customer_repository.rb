@@ -2,11 +2,12 @@ require_relative 'customer'
 require_relative 'customer_parser'
 
 class CustomerRepository
-  attr_reader :customers
+  attr_reader :customers, :sales_engine
 
-  def initialize(data)
+  def initialize(data, parent)
     parser = CustomerParser.new(data)
     @customers = parser.parse
+    @sales_engine = parent
   end
 
   def all
@@ -55,6 +56,10 @@ class CustomerRepository
 
   def find_all_by_updated_at(updated_at)
     find_all_by_attribute(:updated_at, updated_at)
+  end
+
+  def invoices(id)
+    sales_engine.invoice_repository.find_all_by_customer_id(id)
   end
 
   private
