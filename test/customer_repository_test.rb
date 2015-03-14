@@ -27,7 +27,7 @@ class CustomerRepositoryTest < Minitest::Test
 
   def test_it_can_return_a_random_customer
     customer_repo = CustomerRepository.new('./test/support/customers.csv')
-    random = customer_repo.random
+    random =  customer_repo.random
     assert random
     assert_equal Customer, random.class
   end
@@ -83,7 +83,8 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_an_empty_array_if_no_matches_for_find_all_by_x
-    customer_repo = CustomerRepository.new('./test/support/customers.csv')
+    customer_repo = CustomerRepository.new('./test/support/customers.csv')    
     assert_equal [], customer_repo.find_all_by_id(10)
   end
+
 end
