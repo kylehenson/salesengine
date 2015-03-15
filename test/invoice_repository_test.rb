@@ -7,7 +7,7 @@ class InvoiceRepositoryTest < Minitest::Test
     assert InvoiceRepository
   end
 
-  def test_it_holds_seven_customer_instances
+  def test_it_holds_seven_invoice_instances
     invoice_repo = InvoiceRepository.new('./test/support/invoices.csv', nil)
     assert invoice_repo.invoices.count == 7
   end
@@ -93,7 +93,7 @@ class InvoiceRepositoryTest < Minitest::Test
   end
 
   def test_it_returns_an_empty_array_if_no_matches_for_find_all_by_x
-    customer_repo = CustomerRepository.new('./test/support/customers.csv', nil)
-    assert_equal [], customer_repo.find_all_by_id(10)
+    invoice_repo = InvoiceRepository.new('./test/support/customers.csv', nil)
+    assert_equal [], invoice_repo.find_all_by_id(10)
   end
 end
