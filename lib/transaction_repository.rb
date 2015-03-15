@@ -2,11 +2,18 @@ require_relative 'transaction'
 require_relative 'transaction_parser'
 
 class TransactionRepository
-  attr_reader :transactions
+  attr_reader :transactions, :sales_engine
 
-  def initialize(data)
+  def initialize(data, parent)
     parser = TransactionParser.new(data)
-    @transactions = parser.parse
+    @transactions = parser.parse(self)
+    @sales_engine = parent
+  end
+
+  def invoice(transaction_id)
+    transaction = find_by_id(transaction_id)
+    invoice_id  = transaction.invoice_id
+    sales_engine.invoice_repository.find_by_id(invoice_id)
   end
 
   def all
