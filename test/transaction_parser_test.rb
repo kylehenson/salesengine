@@ -10,14 +10,14 @@ class TransactionParserTest < Minitest::Test
   def test_it_can_read_the_file
     file_name = "./test/support/transactions.csv"
     parser = TransactionParser.new(file_name)
-    refute_equal nil, parser.parse
+    refute_equal nil, parser.parse(nil)
   end
 
   def test_it_can_parse_a_csv_file
     file_name = "./test/support/transactions.csv"
     parser = TransactionParser.new(file_name)
 
-    transactions = parser.parse
+    transactions = parser.parse(nil)
     first = transactions.first
 
     assert_equal Transaction, first.class

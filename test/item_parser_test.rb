@@ -10,14 +10,14 @@ class ItemParserTest < Minitest::Test
   def test_it_can_read_the_file
     file_name = "./test/support/items.csv"
     parser = ItemParser.new(file_name)
-    refute_equal nil, parser.parse
+    refute_equal nil, parser.parse(nil)
   end
-  
+
   def test_it_can_parse_a_csv_file
     file_name = "./test/support/items.csv"
     parser = ItemParser.new(file_name)
 
-    items = parser.parse
+    items = parser.parse(nil)
     first = items.first
 
     assert_equal Item, first.class

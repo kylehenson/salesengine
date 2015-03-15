@@ -8,10 +8,10 @@ class InvoiceParser
     @filename = filename
   end
 
-  def parse
+  def parse(parent)
     file = CSV.open(filename, headers: true, header_converters: :symbol)
     file.map do |line|
-      Invoice.new(line)
+      Invoice.new(line, parent)
     end
   end
 

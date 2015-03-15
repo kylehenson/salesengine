@@ -2,11 +2,17 @@ class Customer
   attr_reader :id, :first_name, :last_name, :created_at, :updated_at
 
   def initialize(line, parent)
-    @id         = line[:id].to_i
-    @first_name = line[:first_name]
-    @last_name  = line[:last_name]
-    @created_at = line[:created_at]
-    @updated_at = line[:updated_at]
+    @id                  = line[:id].to_i
+    @first_name          = line[:first_name]
+    @last_name           = line[:last_name]
+    @created_at          = line[:created_at]
+    @updated_at          = line[:updated_at]
+    @customer_repository = parent
   end
+
+  def invoices(id)
+    customer_repository.invoices(id)
+  end
+
 
 end

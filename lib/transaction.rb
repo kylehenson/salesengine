@@ -20,7 +20,7 @@ class Transaction
   end
 
   def invoice
-    transaction_repository.sales_engine.invoice_repository.find_by_id(invoice_id)
+    transaction_repository.invoice(invoice_id)
   end
 
 

@@ -12,17 +12,17 @@ class InvoiceTest < Minitest::Test
   def test_invoice_has_customer_id_and_id
     file = CSV.open("./test/support/invoices.csv", headers: true, header_converters: :symbol)
     first = file.first
-    invoice = Invoice.new(first)
+    invoice = Invoice.new(first, nil)
     assert_equal 1, invoice.id
-    assert_equal "1", invoice.customer_id
+    assert_equal 1, invoice.customer_id
   end
 
   def test_invoice_has_other_invoice_attributes
     file = CSV.open("./test/support/invoices.csv", headers: true, header_converters: :symbol)
     first = file.first
-    invoice = Invoice.new(first)
+    invoice = Invoice.new(first, nil)
     assert_equal 'shipped', invoice.status
-    assert_equal '26', invoice.merchant_id
+    assert_equal 26, invoice.merchant_id
   end
 
 end

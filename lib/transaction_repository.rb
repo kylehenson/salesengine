@@ -10,10 +10,8 @@ class TransactionRepository
     @sales_engine = parent
   end
 
-  def invoice(transaction_id)
-    transaction = find_by_id(transaction_id)
-    invoice_id  = transaction.invoice_id
-    sales_engine.invoice_repository.find_by_id(invoice_id)
+  def invoice(id)
+    sales_engine.find_invoice_by_transaction(id)
   end
 
   def all

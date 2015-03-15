@@ -63,8 +63,7 @@ class CustomerIntegrationTest < Minitest::Test
   end
 
   def test_it_can_receive_data_from_invoice_repo
-    customers = engine.customer_repository.invoices("1")
-
+    customers = engine.customer_repository.invoices(1)
     assert_equal 7, customers.count
   end
 end

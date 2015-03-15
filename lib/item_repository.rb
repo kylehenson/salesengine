@@ -2,11 +2,20 @@ require_relative 'item'
 require_relative 'item_parser'
 
 class ItemRepository
-  attr_reader :items
+  attr_reader :items, :sales_engine
 
-  def initialize(data)
-    parser = ItemParser.new(data)
-    @items = parser.parse
+  def initialize(data, parent)
+    parser        = ItemParser.new(data)
+    @items        = parser.parse(self)
+    @sales_engine = parent
+  end
+
+  def merchant(id)
+    sales_engine.find_merchant_by_item(id)
+  end
+
+  def invoice_items(id)
+    sales_engine.find_invoice_items_by_item(id)
   end
 
   def all

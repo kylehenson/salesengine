@@ -10,7 +10,7 @@ class ItemTest < Minitest::Test
   def test_item_has_id
     file = CSV.open("./test/support/items.csv", headers: true, header_converters: :symbol)
     first = file.first
-    one_item = Item.new(first)
+    one_item = Item.new(first, nil)
 
     assert_equal 1, one_item.id
   end
@@ -18,7 +18,7 @@ class ItemTest < Minitest::Test
   def test_item_has_name
     file = CSV.open("./test/support/items.csv", headers: true, header_converters: :symbol)
     first = file.first
-    one_item = Item.new(first)
+    one_item = Item.new(first, nil)
 
     assert_equal "Item Qui Esse", one_item.name
   end
@@ -26,7 +26,7 @@ class ItemTest < Minitest::Test
   def test_item_has_a_description
     file = CSV.open("./test/support/items.csv", headers: true, header_converters: :symbol)
     first = file.first
-    one_item = Item.new(first)
+    one_item = Item.new(first, nil)
 
     assert_equal "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.", one_item.description
   end
@@ -34,7 +34,7 @@ class ItemTest < Minitest::Test
   def test_item_has_a_unit_price
     file = CSV.open("./test/support/items.csv", headers: true, header_converters: :symbol)
     first = file.first
-    one_item = Item.new(first)
+    one_item = Item.new(first, nil)
 
     assert_equal "75107", one_item.unit_price
   end
@@ -42,15 +42,15 @@ class ItemTest < Minitest::Test
   def test_item_has_a_merchant_id
     file = CSV.open("./test/support/items.csv", headers: true, header_converters: :symbol)
     first = file.first
-    one_item = Item.new(first)
+    one_item = Item.new(first, nil)
 
-    assert_equal "1", one_item.merchant_id
+    assert_equal 1, one_item.merchant_id
   end
 
   def test_item_has_a_created_at
     file = CSV.open("./test/support/items.csv", headers: true, header_converters: :symbol)
     first = file.first
-    one_item = Item.new(first)
+    one_item = Item.new(first, nil)
 
     assert_equal "2012-03-27 14:53:59 UTC", one_item.created_at
   end
@@ -58,9 +58,22 @@ class ItemTest < Minitest::Test
   def test_item_has_a_updated_at
     file = CSV.open("./test/support/items.csv", headers: true, header_converters: :symbol)
     first = file.first
-    one_item = Item.new(first)
+    one_item = Item.new(first,nil)
 
     assert_equal "2012-03-27 14:53:59 UTC", one_item.updated_at
   end
 
+  class ItemIntegrationTest < Minitest::Test
+    attr_reader :engine, :item_repository, :merchant_repository
+
+    def setup
+      @engine = SalesEngine.new('./test/support/')
+    end
+
+    def test_it_can_receive_data_from_merchant_repo
+      item = engine.item_repository.items.first
+      assert_equal Merchant, item.merchant.class
+    end
+
+  end
 end
