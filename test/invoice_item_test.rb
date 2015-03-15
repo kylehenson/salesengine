@@ -41,6 +41,6 @@ class InvoiceItemTest < Minitest::Test
     def test_it_can_receive_data_from_invoice_repo
       invoice_item = engine.invoice_item_repository.invoice_items[0]
       assert_equal Invoice, invoice_item.invoice.class
-    end
+    end    
   end
 end

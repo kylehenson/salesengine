@@ -26,4 +26,19 @@ class Invoice
     invoice_repository.merchant(merchant_id)
   end
 
+  def transactions
+    invoice_repository.transactions(id)
+  end
+
+  def invoice_items
+    invoice_repository.invoice_items(id)
+  end
+
+  def items
+    #look for things we can refactor like this
+    invoice_items.map do |invoice_item|
+      invoice_item.item 
+    end
+  end
+
 end

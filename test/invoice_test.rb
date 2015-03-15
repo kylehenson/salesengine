@@ -42,6 +42,20 @@ class InvoiceTest < Minitest::Test
       assert_equal Merchant, invoice.merchant.class
     end
 
-  end
+    def test_it_can_receive_data_from_invoice_items
+      invoice = engine.invoice_repository.invoices[0]
+      assert_equal InvoiceItem, invoice.invoice_items[0].class
+    end
 
+    def test_it_can_receive_data_from_transactions
+      invoice = engine.invoice_repository.invoices[0]
+      assert_equal Transaction, invoice.transactions[0].class
+    end
+
+    def test_it_can_receive_data_from_items_via_invoice_items
+      invoice = engine.invoice_repository.invoices[0]
+      assert_equal Item, invoice.items[0].class
+    end
+
+  end
 end

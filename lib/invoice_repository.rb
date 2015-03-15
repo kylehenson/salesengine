@@ -18,6 +18,18 @@ class InvoiceRepository
     sales_engine.find_merchant_by_invoice(id)
   end
 
+  def items(id)
+    sales_engine.find_items_by_invoice(id)
+  end
+
+  def transactions(id)
+    sales_engine.find_transactions_by_invoice(id)
+  end
+
+  def invoice_items(id)
+    sales_engine.find_invoice_items_by_invoice(id)
+  end
+
   def all
     invoices
   end
