@@ -25,4 +25,23 @@ class InvoiceTest < Minitest::Test
     assert_equal 26, invoice.merchant_id
   end
 
+  class InvoiceIntegrationTest < Minitest::Test
+    attr_reader :engine
+
+    def setup
+      @engine = SalesEngine.new('./test/support/')
+    end
+
+    def test_it_can_receive_data_from_customer_repo
+      invoice = engine.invoice_repository.invoices[0]
+      assert_equal Customer, invoice.customer.class
+    end
+
+    def test_it_can_receive_data_from_merchant_repo
+      invoice = engine.invoice_repository.invoices[3]
+      assert_equal Merchant, invoice.merchant.class
+    end
+
+  end
+
 end

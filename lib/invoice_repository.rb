@@ -10,6 +10,14 @@ class InvoiceRepository
     @sales_engine = parent
   end
 
+  def customer(id)
+    sales_engine.find_customer_by_invoice(id)
+  end
+
+  def merchant(id)
+    sales_engine.find_merchant_by_invoice(id)
+  end
+
   def all
     invoices
   end
