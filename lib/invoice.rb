@@ -35,9 +35,8 @@ class Invoice
   end
 
   def items
-    #look for things we can refactor like this
     invoice_items.map do |invoice_item|
-      invoice_item.item 
+      invoice_item.item
     end
   end
 
