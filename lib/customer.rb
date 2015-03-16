@@ -10,7 +10,7 @@ class Customer
     @customer_repository = parent
   end
 
-  def invoices(id)
+  def invoices
     customer_repository.invoices(id)
   end
 

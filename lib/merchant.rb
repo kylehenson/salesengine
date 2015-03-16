@@ -21,4 +21,12 @@ class Merchant
     merchant_repository.invoices(id)
   end
 
+  def revenue(date = nil)
+    if date == nil
+    else
+      invoices = merchant.invoices
+      invoice_items = invoices.map { |invoice| invoice.invoice_items}
+    end
+  end
+
 end

@@ -10,6 +10,10 @@ class CustomerRepository
     @sales_engine = parent
   end
 
+  def invoices(id)
+    sales_engine.find_invoices_by_customer(id)
+  end
+
   def all
     customers
   end
@@ -57,11 +61,6 @@ class CustomerRepository
   def find_all_by_updated_at(updated_at)
     find_all_by_attribute(:updated_at, updated_at)
   end
-
-  def invoices(id)
-    sales_engine.find_invoices_by_customer(id)
-  end
-
 
   private
 

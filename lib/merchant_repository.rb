@@ -10,6 +10,15 @@ class MerchantRepository
     @sales_engine = parent
   end
 
+  def most_revenue(x)
+    items = @merchants.map do |merchant|
+      merchant.items
+    end
+    items.sort_by do |item|
+      item.unit_price * item.quantity
+    end
+  end
+
   def items(id)
     sales_engine.find_items_by_merchant(id)
   end
