@@ -1,85 +1,50 @@
 require_relative 'test_helper'
 require_relative '../lib/invoice_item_repository'
 
-class InvoiceItemRepository
-  attr_reader :invoice_items
+class InvoiceItemRepositoryTest < Minitest::Test
 
-  def initialize(data)
-    parser = InvoiceItemParser.new(data)
-    @invoice_items = parser.parse
+  def test_it_exists
+    assert InvoiceItemRepository
   end
 
-  def all
-    invoice_items
+  def test_it_holds_seven_invoice_item_instances
+    invoice_item_repo = InvoiceItemRepository.new('./test/support/invoice_items.csv', nil)
+    assert invoice_item_repo.invoice_items.count == 8
   end
 
-  def random
-    invoice_items.sample
+  def test_it_contains_parsed_invoice_item_objects
+    invoice_item_repo = InvoiceItemRepository.new('./test/support/invoice_items.csv', nil)
+    first = invoice_item_repo.invoice_items.first
+    assert_equal 1, first.invoice_id
   end
 
-  def find_by_id(id)
-    find_by_attribute(:id, id)
+  def test_all_returns_a_collection_of_invoice_items
+    invoice_item_repo = InvoiceItemRepository.new('./test/support/invoice_items.csv', nil)
+    all = invoice_item_repo.all
+    assert_equal 8, all.count
+    assert_equal InvoiceItem, all.first.class
   end
 
-  def find_by_item_id(item_id)
-    find_by_attribute(:item_id, item_id)
+  def test_random_returns_an_instance_of_invoice_item
+    invoice_item_repo = InvoiceItemRepository.new('./test/support/invoice_items.csv', nil)
+    assert_equal InvoiceItem, invoice_item_repo.random.class
   end
 
-  def find_by_invoice_id(invoice_id)
-    find_by_attribute(:invoice_id, invoice_id)
+  def test_it_can_find_by_id
+    invoice_item_repo = InvoiceItemRepository.new('./test/support/invoice_items.csv', nil)
+    assert_equal 539, invoice_item_repo.find_by_id(1).item_id
   end
 
-  def find_by_quantity(quantity)
-    find_by_attribute(:quantity, quantity)
+  def test_it_can_find_by_item_id
+    invoice_item_repo = InvoiceItemRepository.new('./test/support/invoice_items.csv', nil)
+    assert_equal 2, invoice_item_repo.find_by_item_id(528).id
   end
 
-  def find_by_unit_price(unit_price)
-    find_by_attribute(:unit_price, unit_price)
+  def test_it_can_find_by_invoice_id
   end
 
-  def find_by_created_at(created_at)
-    find_by_attribute(:created_at, created_at)
-  end
-
-  def find_by_updated_at(updated_at)
-    find_by_attribute(:updated_at, updated_at)
-  end
-
-  def find_all_by_id(id)
-    find_all_by_attribute(:id, id)
-  end
-
-  def find_all_by_item_id(item_id)
-    find_all_by_attribute(:item_id, item_id)
-  end
-
-  def find_all_by_invoice_id(invoice_id)
-    find_all_by_attribute(:invoice_id, invoice_id)
-  end
-
-  def find_all_by_quantity(quantity)
-    find_all_by_attribute(:quantity, quantity)
-  end
-
-  def find_all_by_unit_price(unit_price)
-    find_all_by_attribute(:unit_price, unit_price)
-  end
-
-  def find_all_by_created_at(created_at)
-    find_all_by_attribute(:created_at, created_at)
-  end
-
-  def find_all_by_updated_at(updated_at)
-    find_all_by_attribute(:updated_at, updated_at)
-  end
-
-  private
-
-  def find_by_attribute(attribute, given)
-    invoice_items.detect { |invoice_item| invoice_item.send(attribute) == given }
-  end
-
-  def find_all_by_attribute(attribute, given)
-    invoice_items.select { |invoice_item| invoice_item.send(attribute) == given }
+  def test_it_returns_an_empty_array_if_no_matches_for_find_all_by_x
+    invoice_item_repo = InvoiceItemRepository.new('./test/support/invoice_items.csv', nil)
+    assert_equal [], invoice_item_repo.find_all_by_id(10)
   end
 end

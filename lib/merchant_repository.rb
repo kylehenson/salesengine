@@ -2,11 +2,20 @@ require_relative 'merchant'
 require_relative 'merchant_parser'
 
 class MerchantRepository
-  attr_reader :merchants
+  attr_reader :merchants, :sales_engine
 
-  def initialize(data)
+  def initialize(data, parent)
     parser = MerchantParser.new(data)
-    @merchants = parser.parse
+    @merchants = parser.parse(self)
+    @sales_engine = parent
+  end
+
+  def items(id)
+    sales_engine.find_items_by_merchant(id)
+  end
+
+  def invoices(id)
+    sales_engine.find_invoices_by_merchant(id)
   end
 
   def inspect

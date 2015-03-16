@@ -8,10 +8,10 @@ class ItemParser
     @filename = filename
   end
 
-  def parse
+  def parse(parent)
     file = CSV.open(filename, headers: true, header_converters: :symbol)
     file.map do |line|
-      Item.new(line)
+      Item.new(line, parent)
     end
   end
 
