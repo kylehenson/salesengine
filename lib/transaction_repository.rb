@@ -10,6 +10,10 @@ class TransactionRepository
     @sales_engine = parent
   end
 
+  def inspect
+    "#<#{self.class} #{@transactions.size} rows>"
+  end
+
   def invoice(id)
     sales_engine.find_invoice_by_transaction(id)
   end

@@ -43,6 +43,11 @@ class InvoiceItemRepositoryTest < Minitest::Test
   def test_it_can_find_by_invoice_id
   end
 
+  def test_it_can_find_all_by_quantity
+    invoice_item_repo = InvoiceItemRepository.new('./test/support/invoice_items.csv', nil)
+    assert_equal 3, invoice_item_repo.find_all_by_quantity(5).count
+  end
+
   def test_it_returns_an_empty_array_if_no_matches_for_find_all_by_x
     invoice_item_repo = InvoiceItemRepository.new('./test/support/invoice_items.csv', nil)
     assert_equal [], invoice_item_repo.find_all_by_id(10)

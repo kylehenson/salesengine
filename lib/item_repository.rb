@@ -10,6 +10,10 @@ class ItemRepository
     @sales_engine = parent
   end
 
+  def inspect
+    "#<#{self.class} #{@items.size} rows>"
+  end
+
   def merchant(id)
     sales_engine.find_merchant_by_item(id)
   end

@@ -36,7 +36,7 @@ class ItemTest < Minitest::Test
     first = file.first
     one_item = Item.new(first, nil)
 
-    assert_equal "75107", one_item.unit_price
+    assert "75107", one_item.unit_price
   end
 
   def test_item_has_a_merchant_id

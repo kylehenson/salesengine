@@ -10,6 +10,10 @@ class InvoiceItemRepository
     @sales_engine = parent
   end
 
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
+  end
+
   def invoice(id)
     sales_engine.find_invoice_by_invoice_item(id)
   end

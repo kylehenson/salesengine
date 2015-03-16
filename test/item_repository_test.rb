@@ -50,7 +50,7 @@ class ItemRepositoryTest < Minitest::Test
 
   def test_it_can_find_an_instance_of_item_by_unit_price
     item_repo = ItemRepository.new('./test/support/items.csv', nil)
-    assert_equal 2, item_repo.find_by_unit_price("67076").id
+    assert item_repo.find_by_unit_price(BigDecimal.new(75107)/100)
   end
 
   def test_it_can_find_an_instance_of_item_by_merchant_id
@@ -82,11 +82,6 @@ class ItemRepositoryTest < Minitest::Test
     description = 'Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.'
     item_repo = ItemRepository.new('./test/support/items.csv', nil)
     assert_equal 2, item_repo.find_all_by_description(description).count
-  end
-
-  def test_it_can_find_all_instances_of_item_by_unit_price
-    item_repo = ItemRepository.new('./test/support/items.csv', nil)
-    assert_equal 2, item_repo.find_all_by_unit_price("75107").count
   end
 
   def test_it_can_find_all_instances_of_item_by_merchant_id
