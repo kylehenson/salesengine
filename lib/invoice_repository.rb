@@ -4,9 +4,13 @@ require_relative 'invoice_parser'
 class InvoiceRepository
   attr_reader :invoices
 
-  def initialize(data)
+  def initialize(data, parent)
     parser = InvoiceParser.new(data)
     @invoices = parser.parse
+  end
+
+  def inspect
+    "#<#{self.class} #{@invoices.size} rows>"
   end
 
   def all

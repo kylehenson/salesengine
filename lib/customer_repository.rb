@@ -10,6 +10,10 @@ class CustomerRepository
     @sales_engine = parent
   end
 
+  def inspect
+    "#<#{self.class} #{@customers.size} rows>"
+  end
+
   def all
     customers
   end
