@@ -1,5 +1,5 @@
 class Customer
-  attr_reader :id, :first_name, :last_name, :created_at, :updated_at
+  attr_reader :id, :first_name, :last_name, :created_at, :updated_at, :customer_repository
 
   def initialize(line, parent)
     @id                  = line[:id].to_i
@@ -10,7 +10,7 @@ class Customer
     @customer_repository = parent
   end
 
-  def invoices(id)
+  def invoices
     customer_repository.invoices(id)
   end
 
