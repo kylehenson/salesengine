@@ -10,14 +10,14 @@ class CustomerParserTest < Minitest::Test
   def test_it_can_read_the_file
     file_name = "./test/support/customers.csv"
     parser = CustomerParser.new(file_name)
-    refute_equal nil, parser.parse
+    refute_equal nil, parser.parse(nil)
   end
 
   def test_it_can_parse_a_csv_file
     file_name = "./test/support/customers.csv"
     parser = CustomerParser.new(file_name)
 
-    customers = parser.parse
+    customers = parser.parse(nil)
     first = customers.first
 
     assert_equal Customer, first.class

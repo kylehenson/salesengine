@@ -6,7 +6,7 @@ class CustomerRepository
 
   def initialize(data, parent)
     parser = CustomerParser.new(data)
-    @customers = parser.parse
+    @customers = parser.parse(self)
     @sales_engine = parent
   end
 
@@ -63,8 +63,9 @@ class CustomerRepository
   end
 
   def invoices(id)
-    sales_engine.invoice_repository.find_all_by_customer_id(id)
+    sales_engine.find_invoices_by_customer(id)
   end
+
 
   private
 

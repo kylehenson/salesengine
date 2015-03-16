@@ -10,14 +10,13 @@ class InvoiceItemParserTest < Minitest::Test
   def test_it_can_read_the_file
     file_name = "./test/support/invoice_items.csv"
     parser = InvoiceItemParser.new(file_name)
-    refute_equal nil, parser.filename
+    refute_equal nil, parser.parse(nil)
   end
 
   def test_it_can_parse_a_csv_file
     file_name = "./test/support/invoice_items.csv"
     parser = InvoiceItemParser.new(file_name)
-    refute_equal nil, parser
-    #ask someone how to test this
+    refute_equal nil, parser.parse(nil)
   end
 
 
