@@ -1,3 +1,4 @@
+require 'bigdecimal'
 class Merchant
   attr_reader :id,
               :name,
@@ -21,4 +22,15 @@ class Merchant
     merchant_repository.invoices(id)
   end
 
+  def revenue
+    successful_invoices
+    merchant_invoice_items = successful_invoices.flat_map { |invoice| invoice.invoice_items}
+    revenues               = merchant_invoice_items.map { |invoice_item| invoice_item.quantity.to_i * invoice_item.unit_price.to_i }
+    BigDecimal.new(revenues.reduce(:+))/100
+  end
+
+
+  def successful_invoices
+    invoices.select { |invoice| invoice.success? }
+  end
 end

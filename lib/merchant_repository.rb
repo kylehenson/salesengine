@@ -9,7 +9,7 @@ class MerchantRepository
     @merchants = parser.parse(self)
     @sales_engine = parent
   end
-
+  
   def items(id)
     sales_engine.find_items_by_merchant(id)
   end

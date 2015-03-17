@@ -41,6 +41,34 @@ class MerchantTest < Minitest::Test
       merchant = engine.merchant_repository.merchants[0]
       assert_equal Item, merchant.items[0].class
     end
+
+#### Use real data sets for load paths
+
+    def test_revenue_method_returns_instances_of_invoice_items
+      skip
+      engine = SalesEngine.new('./data')
+      merchant = engine.merchant_repository.merchants[0]
+      assert_equal InvoiceItem, merchant.revenue[0].class
+    end
+
+    def test_revenue_method_returns_bigdecimal
+      engine = SalesEngine.new('./data')
+      merchant = engine.merchant_repository.merchants[0]
+      assert_equal BigDecimal, merchant.revenue.class
+    end
+
+    def test_it_can_find_successful_invoices
+      engine = SalesEngine.new('./data')
+      merchant = engine.merchant_repository.merchants[0]
+      assert_equal Array, merchant.successful_invoices.class
+      assert_equal Invoice, merchant.successful_invoices[0].class
+    end
+
+    def test_can_return_correct_revenue
+      engine = SalesEngine.new('./data')
+      merchant = engine.merchant_repository.merchants[0]
+      assert_equal 528774, merchant.revenue.to_i
+    end
   end
 
 end

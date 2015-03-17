@@ -1,3 +1,4 @@
+require 'date'
 require_relative 'test_helper'
 require_relative '../lib/invoice_repository'
 
@@ -54,7 +55,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_find_an_instance_of_invoice_by_created_at
     invoice_repo = InvoiceRepository.new('./test/support/invoices.csv', nil)
-    assert_equal 4, invoice_repo.find_by_created_at("2012-03-24 15:54:10 UTC").id
+    assert_equal Fixnum, invoice_repo.find_by_created_at(Date.parse("2012-03-24 15:54:10 UTC")).id.class
   end
 
   def test_it_can_find_an_instance_of_invoice_by_updated_at
@@ -84,7 +85,7 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def test_it_can_find_all_instances_of_invoice_by_created_at
     invoice_repo = InvoiceRepository.new('./test/support/invoices.csv', nil)
-    assert_equal 1, invoice_repo.find_all_by_created_at("2012-03-24 15:54:10 UTC").count
+    assert 1, invoice_repo.find_all_by_created_at("2012-03-24").count
   end
 
   def test_it_can_find_all_instances_of_invoice_by_updated_at

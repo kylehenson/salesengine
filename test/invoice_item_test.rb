@@ -23,7 +23,7 @@ class InvoiceItemTest < Minitest::Test
     invoice_item = InvoiceItem.new(first, nil)
     assert_equal 539, invoice_item.item_id
     assert_equal 5, invoice_item.quantity
-    assert_equal '13635', invoice_item.unit_price
+    assert_equal 13635, invoice_item.unit_price.to_i
   end
 
   class InvoiceItemIntegrationTest < Minitest::Test

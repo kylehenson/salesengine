@@ -80,5 +80,11 @@ class ItemTest < Minitest::Test
       assert_equal InvoiceItem, item.invoice_items[0].class
     end
 
+    def test_it_can_get_quantity_and_invoice_id_from_invoice_items
+      engine = SalesEngine.new('./data')
+      item = engine.item_repository.items[0]
+      assert_equal Date, item.best_day.class
+      assert_equal Date.parse("2012-03-15"), item.best_day
+    end
   end
 end
