@@ -14,5 +14,20 @@ class Customer
     customer_repository.invoices(id)
   end
 
+  def transactions
+    transactions_array = invoices.map {|invoice| invoice.transactions }
+    transactions_array.flatten
+  end
 
+  def favorite_merchant
+    successful_merchants = successful_invoices.map { |invoice| invoice.merchant }
+    merchant_hash = successful_merchants.group_by { |merchant| merchant.id }
+    merchant_list_by_id = merchant_hash.sort_by { |key, value| -value.size }
+    favorite_id = merchant_list_by_id.first
+    favorite_id.flatten.last
+  end
+
+  def successful_invoices
+    invoices.select { |invoice| invoice.success?}
+  end
 end

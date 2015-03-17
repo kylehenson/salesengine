@@ -70,10 +70,17 @@ class MerchantTest < Minitest::Test
       assert_equal 528774, merchant.revenue.to_i
     end
 
-    def test_can_return_correct_revenue
+    def test_can_return_correct_revenue_with_a_date
       engine = SalesEngine.new('./data')
       merchant = engine.merchant_repository.merchants[0]
-      assert_equal 528774, merchant.favorite_customer
+      assert_equal BigDecimal, merchant.revenue("2012-03-25").class
+      assert_equal 24641, merchant.revenue("2012-03-25").to_i
+    end
+
+    def test_can_return_correct_favorite_customer
+      engine = SalesEngine.new('./data')
+      merchant = engine.merchant_repository.merchants[0]
+      assert_equal Customer, merchant.favorite_customer.class
     end
 
   end

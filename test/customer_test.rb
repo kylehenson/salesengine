@@ -66,15 +66,12 @@ class CustomerIntegrationTest < Minitest::Test
     customers = engine.customer_repository.invoices(1)
     assert_equal 7, customers.count
   end
+
+  def test_it_can_receive_transactions_for_a_customer
+    engine = SalesEngine.new('./data')
+    customer = engine.customer_repository.customers.first
+    assert_equal Array, customer.transactions.class
+    refute customer.transactions.empty?
+  end
 end
-  # def test_it_can_receive_data_from_invoice_repo
-  #   # binding.pry
-  #   engine = SalesEngine.new(nil)
-  #   parent = CustomerRepository.new(file, engine)
-  #   first = parent.customers.first
-  #   one_customer = Customer.new(first, parent)
-  #
-  #   assert_equal ({id: 1, customer_id:"1", merchant_id: "26", status: "shipped", created_at:"2012-03-25 09:54:09 UTC", updated_at: "2012-03-25 09:54:09 UTC"}),one_customer.invoices.first
-  #   engine.verify
-  # end
 end
