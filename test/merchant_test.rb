@@ -69,6 +69,13 @@ class MerchantTest < Minitest::Test
       merchant = engine.merchant_repository.merchants[0]
       assert_equal 528774, merchant.revenue.to_i
     end
+
+    def test_can_return_correct_revenue
+      engine = SalesEngine.new('./data')
+      merchant = engine.merchant_repository.merchants[0]
+      assert_equal 528774, merchant.favorite_customer
+    end
+
   end
 
 end
