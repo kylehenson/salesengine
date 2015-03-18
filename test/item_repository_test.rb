@@ -119,4 +119,10 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal Item, item_repo.most_revenue(2).last.class
   end
 
+  def test_it_can_return_multiple_top_revenue_items_for_true_data
+    engine = SalesEngine.new('./data')
+    item_repo = engine.item_repository
+    assert_equal 2, item_repo.most_revenue(2).count
+    assert_equal Item, item_repo.most_revenue(2).last.class
+  end
 end

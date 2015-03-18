@@ -12,11 +12,11 @@ class ItemRepository
 
   def most_revenue(x)
     items_sorted_by_revenue = items.sort_by {|item| item.total_item_revenue.nil? ? 0 : item.total_item_revenue}
-    items_sorted_by_revenue.pop(x)
+    items_sorted_by_revenue.reverse.first(x)
   end
 
   def most_items(x)
-
+    
   end
 
   def inspect
