@@ -23,7 +23,7 @@ class MerchantRepository
 
   def most_items(x)
     merchants_sorted_by_items = merchants.sort_by { |merchant| merchant.total_merchant_items }
-    merchants_soreted_by_items.reverse.first(x)
+    merchants_sorted_by_items.reverse.first(x)
   end
 
   def items(id)

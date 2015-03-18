@@ -22,6 +22,10 @@ class InvoiceItemRepository
     sales_engine.find_item_by_invoice_item(id)
   end
 
+  def next_id
+    invoice_items.last.id + 1
+  end
+
   def all
     invoice_items
   end

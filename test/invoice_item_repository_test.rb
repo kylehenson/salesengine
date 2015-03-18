@@ -41,6 +41,8 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_invoice_id
+    invoice_item_repo = InvoiceItemRepository.new('./test/support/invoice_items.csv', nil)
+    assert_equal 3, invoice_item_repo.find_by_invoice_id(8).id
   end
 
   def test_it_can_find_all_by_quantity

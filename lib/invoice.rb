@@ -46,13 +46,29 @@ class Invoice
     transactions.any? { |transaction| transaction.result == "success"}
   end
 
-  #def add items(items)
+  def add_items(items_array)
+    item_ids = items_array.group_by {|item| item.id}
   #call group by on items to group items by item_id
   #iterate through that result
-  #for each pair create an invoice item
-    #set item id to the key
-    #set the quantity to the number of items in the value
-    #set invoice_id to incremented id
-    #add the invoice_item to invoice_item repo
+    invoice_items = item_ids.map do |k, v|
+      data = {
+          id:         invoice_item_repository.next_id
+          item_id:    v.first.id
+          invoice_id: invoice_repository.next_id
+          quantity:   v.size
+          unit_price: v.first.unit_price
+          created_at: Time.now
+          updated_at: Time.now
+          }
+          invoice_item_repo.invoice_items << InvoiceItem.new(data, invoice_item_repo)
+        end
+
+  def invoice_item_repo
+    self.engine.invoice_item_repository
+  end
+
+  def charge(credit_card_hash)
+
+  end
 
 end

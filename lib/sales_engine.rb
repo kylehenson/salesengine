@@ -26,23 +26,7 @@ class SalesEngine
     @item_repository = ItemRepository.new("#{@filepath}/items.csv", self)
     @transaction_repository = TransactionRepository.new("#{@filepath}/transactions.csv", self)
   end
-
-  def startup
-    filepath = "#{@filepath}/merchants.csv"
-    @merchants = CSV.open(filepath,
-                          headers: true,
-                          header_converters: :symbol)
-    # filepath = "#{@filepath}/customers.csv"
-    # @customers = CSV.open(filepath,
-    #                       headers: true,
-    #                       header_converters: :symbol)
-    # filepath = "#{@filepath}/invoices.csv"
-    # @invoices = CSV.open(filepath,
-    #                       headers: true,
-    #                       header_converters: :symbol)
-  end
-
-
+  
   def find_invoice_by_transaction(id)
     invoice_repository.find_by_id(id)
   end

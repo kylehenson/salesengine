@@ -127,7 +127,7 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_return_multiple_items_with_most_quantity_sold
-    engine = SalesEngine.new('./test/support')
+    engine = SalesEngine.new('./data')
     item_repo = engine.item_repository
     assert_equal Item, item_repo.most_items(2).last.class
     assert_equal 539, item_repo.most_items(2).last.id

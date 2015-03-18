@@ -53,7 +53,7 @@ class Item
   end
 
   def total_item_quantity
-    quantities = successful_invoice_items.map { |invoice_item| invoice_item.revenue }
+    quantities = successful_invoice_items.map { |invoice_item| invoice_item.quantity }
     quantities.reduce(:+)
   end
 

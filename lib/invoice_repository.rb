@@ -10,6 +10,24 @@ class InvoiceRepository
     @sales_engine = parent
   end
 
+  def next_id
+    @invoices.last.id + 1
+  end
+
+  def create(hash)
+    data = {
+          :id => next_id,
+          :customer_id => hash[:customer].id,
+          :merchant_id => hash[:merchant].id,
+          :status => hash[:status],
+          :created_at => Time.now,
+          :updated_at => Time.now
+            }
+    invoice = Invoice.new(data, self)
+    @invoices << invoice
+    invoice.add_items(hash[:items])
+  end
+
   def customer(id)
     sales_engine.find_customer_by_invoice(id)
   end

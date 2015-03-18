@@ -1,6 +1,7 @@
 require 'date'
 require_relative 'test_helper'
 require_relative '../lib/invoice_repository'
+require_relative '../lib/sales_engine'
 
 class InvoiceRepositoryTest < Minitest::Test
 
@@ -96,5 +97,10 @@ class InvoiceRepositoryTest < Minitest::Test
   def test_it_returns_an_empty_array_if_no_matches_for_find_all_by_x
     invoice_repo = InvoiceRepository.new('./test/support/customers.csv', nil)
     assert_equal [], invoice_repo.find_all_by_id(10)
+  end
+
+  def test_create_does_something
+    engine = SalesEngine.new('./test/support')
+    invoice_repo = engine.invoice_repository
   end
 end
