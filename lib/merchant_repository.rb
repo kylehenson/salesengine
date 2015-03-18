@@ -9,25 +9,7 @@ class MerchantRepository
     @merchants = parser.parse(self)
     @sales_engine = parent
   end
-
-  def most_revenue(x)
-     merchants_sorted_by_revenue = merchants.sort_by { |merchant| merchant.total_merchant_revenue }
-     merchants_sorted_by_revenue.reverse.first(x)
-   end
-
-   def most_items(x)
-     merchants_sorted_by_items = merchants.sort_by { |merchant| merchant.total_merchant_items }
-     merchants_sorted_by_items.reverse.first(x)
-   end
-
-   def revenue(date)
-     successful_invoices = merchants.flat_map { |merchant| merchant.successful_invoices }
-     successful_invoices_for_date = successful_invoices.select { |invoice| invoice.created_at == date }
-     successful_invoice_items = successful_invoices_for_date.flat_map { |invoice| invoice.invoice_items}
-     revenues = successful_invoice_items.map {|invoice_item| invoice_item.revenue}
-     BigDecimal.new(revenues.reduce(:+))/100
-   end
-
+  
   def items(id)
     sales_engine.find_items_by_merchant(id)
   end
@@ -90,4 +72,21 @@ class MerchantRepository
     merchants.select { |merchant| merchant.send(attribute) == given }
   end
 
+  def most_revenue(x)
+     merchants_sorted_by_revenue = merchants.sort_by { |merchant| merchant.total_merchant_revenue }
+     merchants_sorted_by_revenue.reverse.first(x)
+   end
+
+   def most_items(x)
+     merchants_sorted_by_items = merchants.sort_by { |merchant| merchant.total_merchant_items }
+     merchants_sorted_by_items.reverse.first(x)
+   end
+
+   def revenue(date)
+     successful_invoices = merchants.flat_map { |merchant| merchant.successful_invoices }
+     successful_invoices_for_date = successful_invoices.select { |invoice| invoice.created_at == date }
+     successful_invoice_items = successful_invoices_for_date.flat_map { |invoice| invoice.invoice_items}
+     revenues = successful_invoice_items.map {|invoice_item| invoice_item.revenue}
+     BigDecimal.new(revenues.reduce(:+))/100
+   end
 end
