@@ -99,4 +99,21 @@ class InvoiceRepository
   def find_all_by_attribute(attribute, given)
     invoices.select { |invoice| invoice.send(attribute) == given }
   end
+
+
+  #def create(inputs)
+    # data = {
+    #   :id => next_id,
+    #   :customer_id => inputs[:customer].id
+    #   :merchant_id => inputs[:customer].merchant_id
+    #   :status => inputs[:status]
+    #   :created_at => Time.now
+    #   :updated_at => Time.now
+    # }
+    # invoice = Invoice.new(data, self)
+    # @invoice << invoice
+    #
+    # invoice.add_items(inputs[:items])
+
+    #add_items in invoice
 end
