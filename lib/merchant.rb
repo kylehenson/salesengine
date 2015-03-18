@@ -32,7 +32,7 @@ class Merchant
       given_date_invoices = successful_invoices.select {|invoice| invoice.created_at.to_s == date.to_s }
       merchant_invoice_items = given_date_invoices.flat_map { |invoice| invoice.invoice_items }
       revenues = merchant_invoice_items.map { |invoice_item| invoice_item.quantity.to_i * invoice_item.unit_price.to_i }
-      revenues.reduce(:+).to_d/100
+      BigDecimal.new(revenues.reduce(:+)).to_d/100
     end
   end
 

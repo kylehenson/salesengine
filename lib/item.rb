@@ -43,4 +43,9 @@ class Item
     # quantities_and_dates.sort.pop[1]
   end
 
+  def total_item_revenue
+    revenues = invoice_items.map {|invoice_item| invoice_item.revenue}
+    revenues.reduce(:+)
+  end
+
 end

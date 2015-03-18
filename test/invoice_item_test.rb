@@ -42,5 +42,10 @@ class InvoiceItemTest < Minitest::Test
       invoice_item = engine.invoice_item_repository.invoice_items[0]
       assert_equal Invoice, invoice_item.invoice.class
     end
+
+    def test_it_can_return_the_revenue_generated
+      invoice_item = engine.invoice_item_repository.invoice_items[0]
+      assert_equal 68175, invoice_item.revenue
+    end
   end
 end

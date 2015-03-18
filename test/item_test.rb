@@ -86,5 +86,11 @@ class ItemTest < Minitest::Test
       assert_equal Date, item.best_day.class
       assert_equal Date.parse("2012-03-15"), item.best_day
     end
+
+    def test_it_can_retrieve_total_revenue_for_given_item
+      item = engine.item_repository.items[1]
+      assert_equal 285572, item.total_item_revenue.to_i
+    end
+  
   end
 end

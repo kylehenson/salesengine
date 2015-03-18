@@ -104,4 +104,19 @@ class ItemRepositoryTest < Minitest::Test
     assert_equal [], item_repo.find_all_by_id(10)
   end
 
+  def test_it_can_return_the_item_with_the_most_revenue
+    engine = SalesEngine.new('./test/support')
+    item_repo = engine.item_repository
+    assert_equal Array, item_repo.most_revenue(1).class
+    assert_equal Item, item_repo.most_revenue(1).first.class
+    assert_equal 2, item_repo.most_revenue(1).first.id
+  end
+
+  def test_it_can_return_multiple_top_revenue_items
+    engine = SalesEngine.new('./test/support')
+    item_repo = engine.item_repository
+    assert_equal 2, item_repo.most_revenue(2).count
+    assert_equal Item, item_repo.most_revenue(2).last.class
+  end
+
 end

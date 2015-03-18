@@ -29,4 +29,9 @@ class InvoiceItem
     invoice_item_repository.item(item_id)
   end
 
+  def revenue
+    quantity.to_i * unit_price.to_i
+  end
+
+
 end

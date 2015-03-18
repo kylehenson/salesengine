@@ -1,5 +1,6 @@
 require_relative 'test_helper'
 require_relative '../lib/merchant_repository'
+require_relative '../lib/sales_engine'
 
 class MerchantRepositoryTest < Minitest::Test
 
@@ -75,6 +76,12 @@ class MerchantRepositoryTest < Minitest::Test
   def test_it_returns_an_empty_array_if_no_matches_for_find_all_by_x
     merchant_repo = MerchantRepository.new('./test/support/merchants.csv', nil)
     assert_equal [], merchant_repo.find_all_by_id(10)
+  end
+
+  def test_it_can_return_all_revenues_for_given_date
+    skip
+    engine = SalesEngine.new('./data')
+    assert_equal BigDecimal, engine.merchant_repository.revenue("2012-03-17").class
   end
 
 end

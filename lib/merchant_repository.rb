@@ -9,7 +9,13 @@ class MerchantRepository
     @merchants = parser.parse(self)
     @sales_engine = parent
   end
-  
+
+  # def revenue(date)
+  #   all_revenues = merchants.map {|merchant| merchant.revenue(date)}
+  #   require'pry';binding.pry
+  #   BigDecimal.new(all_revenues.to_i.reduce(:+))
+  # end
+  #
   def items(id)
     sales_engine.find_items_by_merchant(id)
   end
