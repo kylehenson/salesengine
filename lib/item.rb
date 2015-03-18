@@ -43,8 +43,17 @@ class Item
     # quantities_and_dates.sort.pop[1]
   end
 
+  def successful_invoice_items
+    invoice_items.select { |invoice_item| invoice_item.success? }
+  end
+
   def total_item_revenue
-    revenues = invoice_items.map {|invoice_item| invoice_item.revenue}
+    revenues = successful_invoice_items.map { |invoice_item| invoice_item.revenue }
+    revenues.reduce(:+)
+  end
+
+  def total_item_quantity
+    quantities = successful_invoice_items.map { |invoice_item| invoice_item.revenue }
     revenues.reduce(:+)
   end
 

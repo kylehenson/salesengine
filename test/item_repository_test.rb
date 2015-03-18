@@ -116,7 +116,21 @@ class ItemRepositoryTest < Minitest::Test
     engine = SalesEngine.new('./test/support')
     item_repo = engine.item_repository
     assert_equal 2, item_repo.most_revenue(2).count
-    assert_equal Item, item_repo.most_revenue(2).last.class
+    assert_equal 539, item_repo.most_revenue(2).last.id
+  end
+
+  def test_it_can_return_item_with_most_quantity_sold
+    engine = SalesEngine.new('./test/support')
+    item_repo = engine.item_repository
+    assert_equal Item, item_repo.most_items(1).first.class
+    assert_equal 2, item_repo.most_items(1).first.id
+  end
+
+  def test_it_can_return_multiple_items_with_most_quantity_sold
+    engine = SalesEngine.new('./test/support')
+    item_repo = engine.item_repository
+    assert_equal Item, item_repo.most_items(2).last.class
+    assert_equal 539, item_repo.most_items(2).last.id
   end
 
   def test_it_can_return_multiple_top_revenue_items_for_true_data

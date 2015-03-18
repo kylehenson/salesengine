@@ -91,6 +91,11 @@ class ItemTest < Minitest::Test
       item = engine.item_repository.items[1]
       assert_equal 285572, item.total_item_revenue.to_i
     end
-  
+
+    def test_it_can_retrieve_successful_invoice_items
+      engine = SalesEngine.new('./data')
+      item = engine.item_repository.items[0]
+      refute_equal item.invoice_items, item.successful_invoice_items
+    end
   end
 end

@@ -16,7 +16,8 @@ class ItemRepository
   end
 
   def most_items(x)
-    
+    items_sorted_by_quantity = items.sort_by {|item| item.total_item_quantity.nil? ? 0 : item.total_item_quantity}
+    items_sorted_by_quantity.reverse.first(x)
   end
 
   def inspect
