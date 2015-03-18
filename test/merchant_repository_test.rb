@@ -84,4 +84,19 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal BigDecimal, engine.merchant_repository.revenue("2012-03-17").class
   end
 
+  def test_it_can_return_the_merchant_with_the_most_revenue
+    engine = SalesEngine.new('./test/support')
+    merch_repo = engine.merchant_repository
+    assert_equal Array, merch_repo.most_revenue(1).class
+    assert_equal 1, merch_repo.most_revenue(1).count
+    assert_equal 'Schroeder-Jerde', merch_repo.most_revenue(1).first.name
+  end
+
+  def test_it_can_return_multiple_merchants_with_top_revenue
+    engine = SalesEngine.new('./test/support')
+    merch_repo = engine.merchant_repository
+    assert_equal 2, merch_repo.most_revenue(2).count
+    assert_equal 'Williamson Group', merch_repo.most_revenue(2).last.name
+  end
+
 end

@@ -36,7 +36,6 @@ class Merchant
     end
   end
 
-  #STACK OVERFLOW SOLUTION: http://stackoverflow.com/questions/1765368/how-to-count-duplicates-in-ruby-arrays
   def favorite_customer
     successful_customers = successful_invoices.map { |invoice| invoice.customer }
     customer_hash = successful_customers.group_by{|customer| customer.id}
@@ -48,6 +47,20 @@ class Merchant
   def customers_with_pending_invoices
     pending_invoices = invoices.reject { |invoice| invoice.success? }
     pending_customers = pending_invoices.map {|invoice| invoice.customer}
+  end
+
+  def total_merchant_revenue
+    revenues = successful_invoice_items.map { |invoice_item| invoice_item.revenue }
+    revenues.reduce(:+)
+  end
+
+  def total_merchant_items
+    quantities = successful_invoice_items.map { |invoice_item| invoice_item.quantity}
+    quantities.reduce(:+)
+  end
+
+  def successful_invoice_items
+    successful_invoices.flat_map { |invoice| invoice.invoice_items }
   end
 
   def successful_invoices

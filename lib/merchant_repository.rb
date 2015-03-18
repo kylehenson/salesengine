@@ -15,7 +15,17 @@ class MerchantRepository
   #   require'pry';binding.pry
   #   BigDecimal.new(all_revenues.to_i.reduce(:+))
   # end
-  #
+
+  def most_revenue(x)
+    merchants_sorted_by_revenue = merchants.sort_by { |merchant| merchant.total_merchant_revenue }
+    merchants_sorted_by_revenue.reverse.first(x)
+  end
+
+  def most_items(x)
+    merchants_sorted_by_items = merchants.sort_by { |merchant| merchant.total_merchant_items }
+    merchants_soreted_by_items.reverse.first(x)
+  end
+
   def items(id)
     sales_engine.find_items_by_merchant(id)
   end
