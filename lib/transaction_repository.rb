@@ -82,6 +82,25 @@ class TransactionRepository
     find_all_by_attribute(:updated_at, updated_at)
   end
 
+  def next_id
+    transactions.last.id + 1
+  end
+
+  def new_charge(card_info, id)
+    card_info = {
+      id:                     next_id,
+      invoice_id:             id,
+      credit_card_number:     card_info[:credit_card_number],
+      credit_card_expiration: card_info[:credit_card_expiration],
+      result:                 card_info[:result],
+      created_at:             "#{Date.new}",
+      updated_at:             "#{Date.new}"
+    }
+
+    new_transaction = Transaction.new(card_info, self)
+    transactions << new_transaction
+  end
+
   private
 
   def find_by_attribute(attribute, given)
@@ -91,4 +110,5 @@ class TransactionRepository
   def find_all_by_attribute(attribute, given)
     transactions.select { |transaction| transaction.send(attribute) == given}
   end
+
 end

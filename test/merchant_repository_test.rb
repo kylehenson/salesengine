@@ -83,4 +83,10 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal BigDecimal, engine.merchant_repository.revenue(Date.parse("2012-03-17")).class
     assert_equal 2703531, engine.merchant_repository.revenue(Date.parse("2012-03-17")).to_i
   end
+
+  def test_it_can_return_all_revenues_for_given_date
+    engine = SalesEngine.new('./data')
+    assert_equal BigDecimal, engine.merchant_repository.revenue(Date.parse("2012-03-17")).class
+    assert_equal 2703531, engine.merchant_repository.revenue(Date.parse("2012-03-17")).to_i
+  end
 end

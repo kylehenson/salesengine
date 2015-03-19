@@ -2,7 +2,7 @@ require_relative 'invoice'
 require_relative 'invoice_parser'
 
 class InvoiceRepository
-  attr_reader :invoices, :sales_engine
+  attr_reader :invoices, :sales_engine, :item_quantities
 
   def initialize(data, parent)
     parser = InvoiceParser.new(data)
@@ -90,6 +90,34 @@ class InvoiceRepository
     find_all_by_attribute(:updated_at, updated_at)
   end
 
+  def create_quantity_hash(inputs)
+    @item_quantities = Hash.new(0)
+    inputs[:items].each do |item|
+      @item_quantities[item] += 1
+    end
+  end
+
+  def create(inputs)
+    data =  {
+      id:           "#{invoices.last.id + 1}",
+      customer_id:  inputs[:customer].id,
+      merchant_id:  inputs[:merchant].id,
+      status:       inputs[:status],
+      created_at:   "#{Date.new}",
+      updated_at:   "#{Date.new}"
+        }
+
+    new_invoice = Invoice.new(data, self)
+    invoices << new_invoice
+    create_quantity_hash(inputs)
+    sales_engine.create_new_items_with_invoice_id(inputs[:items], new_invoice.id, @item_quantities)
+    new_invoice
+  end
+
+  def new_charge(card_info, id)
+    sales_engine.new_charge(card_info, id)
+  end
+
   private
 
   def find_by_attribute(attribute, given)
@@ -99,21 +127,4 @@ class InvoiceRepository
   def find_all_by_attribute(attribute, given)
     invoices.select { |invoice| invoice.send(attribute) == given }
   end
-
-
-  #def create(inputs)
-    # data = {
-    #   :id => next_id,
-    #   :customer_id => inputs[:customer].id
-    #   :merchant_id => inputs[:customer].merchant_id
-    #   :status => inputs[:status]
-    #   :created_at => Time.now
-    #   :updated_at => Time.now
-    # }
-    # invoice = Invoice.new(data, self)
-    # @invoice << invoice
-    #
-    # invoice.add_items(inputs[:items])
-
-    #add_items in invoice
 end

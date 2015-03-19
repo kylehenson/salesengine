@@ -46,13 +46,7 @@ class Invoice
     transactions.any? { |transaction| transaction.result == "success"}
   end
 
-  #def add items(items)
-  #call group by on items to group items by item_id
-  #iterate through that result
-  #for each pair create an invoice item
-    #set item id to the key
-    #set the quantity to the number of items in the value
-    #set invoice_id to incremented id
-    #add the invoice_item to invoice_item repo
-
+  def charge(input)
+    invoice_repository.new_charge(input, id)
+  end
 end

@@ -9,7 +9,7 @@ class MerchantRepository
     @merchants = parser.parse(self)
     @sales_engine = parent
   end
-  
+
   def items(id)
     sales_engine.find_items_by_merchant(id)
   end
@@ -62,16 +62,6 @@ class MerchantRepository
     find_all_by_attribute(:updated_at, updated_at)
   end
 
-  private
-
-  def find_by_attribute(attribute, given)
-    merchants.detect { |merchant| merchant.send(attribute) == given }
-  end
-
-  def find_all_by_attribute(attribute, given)
-    merchants.select { |merchant| merchant.send(attribute) == given }
-  end
-
   def most_revenue(x)
      merchants_sorted_by_revenue = merchants.sort_by { |merchant| merchant.total_merchant_revenue }
      merchants_sorted_by_revenue.reverse.first(x)
@@ -89,4 +79,15 @@ class MerchantRepository
      revenues = successful_invoice_items.map {|invoice_item| invoice_item.revenue}
      BigDecimal.new(revenues.reduce(:+))/100
    end
+   
+  private
+
+  def find_by_attribute(attribute, given)
+    merchants.detect { |merchant| merchant.send(attribute) == given }
+  end
+
+  def find_all_by_attribute(attribute, given)
+    merchants.select { |merchant| merchant.send(attribute) == given }
+  end
+
 end
