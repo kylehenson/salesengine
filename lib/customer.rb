@@ -1,5 +1,10 @@
 class Customer
-  attr_reader :id, :first_name, :last_name, :created_at, :updated_at, :customer_repository
+  attr_reader :id,
+              :first_name,
+              :last_name,
+              :created_at,
+              :updated_at,
+              :customer_repository
 
   def initialize(line, parent)
     @id                  = line[:id].to_i
@@ -15,12 +20,16 @@ class Customer
   end
 
   def transactions
-    transactions_array = invoices.map {|invoice| invoice.transactions }
+    transactions_array = invoices.map do |invoice|
+      invoice.transactions
+    end
     transactions_array.flatten
   end
 
   def favorite_merchant
-    successful_merchants = successful_invoices.map { |invoice| invoice.merchant }
+    successful_merchants = successful_invoices.map do |invoice|
+      invoice.merchant
+    end
     merchant_hash = successful_merchants.group_by { |merchant| merchant.id }
     merchant_list_by_id = merchant_hash.sort_by { |key, value| -value.size }
     favorite_id = merchant_list_by_id.first

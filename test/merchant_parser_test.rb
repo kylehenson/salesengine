@@ -17,7 +17,6 @@ class MerchantParserTest < Minitest::Test
     file_name = "./test/support/merchants.csv"
     parser = MerchantParser.new(file_name)
     refute_equal nil, parser
-    #ask someone how to test this
   end
 
 

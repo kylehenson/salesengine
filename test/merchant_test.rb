@@ -42,8 +42,6 @@ class MerchantTest < Minitest::Test
       assert_equal Item, merchant.items[0].class
     end
 
-#### Use real data sets for load paths
-
     def test_revenue_method_returns_instances_of_invoice_items
       skip
       engine = SalesEngine.new('./data')

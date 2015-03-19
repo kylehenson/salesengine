@@ -41,6 +41,28 @@ class InvoiceItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_by_invoice_id
+    invoice_item_repo = InvoiceItemRepository.new('./test/support/invoice_items.csv', nil)
+    assert_equal 1, invoice_item_repo.find_by_invoice_id(1).id
+  end
+
+  def test_it_can_find_by_quantity
+    invoice_item_repo = InvoiceItemRepository.new('./test/support/invoice_items.csv', nil)
+    assert_equal 1, invoice_item_repo.find_by_quantity(5).id
+  end
+
+  def test_it_can_find_by_unit_price
+    invoice_item_repo = InvoiceItemRepository.new('./test/support/invoice_items.csv', nil)
+    assert_equal 1, invoice_item_repo.find_by_unit_price("13635").id
+  end
+
+  def test_it_can_find_by_created_at
+    invoice_item_repo = InvoiceItemRepository.new('./test/support/invoice_items.csv', nil)
+    assert_equal 1, invoice_item_repo.find_by_created_at('2012-03-27 14:54:09 UTC').id
+  end
+
+  def test_it_can_find_by_updated_at
+    invoice_item_repo = InvoiceItemRepository.new('./test/support/invoice_items.csv', nil)
+    assert_equal 1, invoice_item_repo.find_by_updated_at('2012-03-27 14:54:09 UTC').id
   end
 
   def test_it_can_find_all_by_quantity

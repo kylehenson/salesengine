@@ -78,10 +78,22 @@ class MerchantRepositoryTest < Minitest::Test
     assert_equal [], merchant_repo.find_all_by_id(10)
   end
 
-  def test_it_can_return_all_revenues_for_given_date
+  def test_it_can_return_most_revenue
     engine = SalesEngine.new('./data')
-    assert_equal BigDecimal, engine.merchant_repository.revenue(Date.parse("2012-03-17")).class
-    assert_equal 2703531, engine.merchant_repository.revenue(Date.parse("2012-03-17")).to_i
+    assert_equal Array, engine.merchant_repository.most_revenue(5).class
+    assert_equal Merchant, engine.merchant_repository.most_revenue(5).first.class
+   assert_equal "Dicki-Bednar", engine.merchant_repository.most_revenue(5).first.name
+  end
+
+  def test_it_can_return_most_items
+    engine = SalesEngine.new('./data')
+    assert_equal Array, engine.merchant_repository.most_items(5).class
+    assert_equal Merchant, engine.merchant_repository.most_items(5).first.class
+
+    first_merch = engine.merchant_repository.most_items(5).first
+    second_merch = engine.merchant_repository.most_items(5)[1]
+
+    assert first_merch.total_merchant_items > second_merch.total_merchant_items
   end
 
   def test_it_can_return_all_revenues_for_given_date

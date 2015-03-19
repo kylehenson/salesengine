@@ -19,27 +19,18 @@ class SalesEngine
 
   def initialize(filepath)
     @filepath = filepath
-    @customer_repository = CustomerRepository.new("#{@filepath}/customers.csv", self)
-    @invoice_repository = InvoiceRepository.new("#{@filepath}/invoices.csv", self)
-    @merchant_repository = MerchantRepository.new("#{@filepath}/merchants.csv", self)
-    @invoice_item_repository = InvoiceItemRepository.new("#{@filepath}/invoice_items.csv", self)
-    @item_repository = ItemRepository.new("#{@filepath}/items.csv", self)
-    @transaction_repository = TransactionRepository.new("#{@filepath}/transactions.csv", self)
-  end
-
-  def startup
-    filepath = "#{@filepath}/merchants.csv"
-    @merchants = CSV.open(filepath,
-                          headers: true,
-                          header_converters: :symbol)
-    # filepath = "#{@filepath}/customers.csv"
-    # @customers = CSV.open(filepath,
-    #                       headers: true,
-    #                       header_converters: :symbol)
-    # filepath = "#{@filepath}/invoices.csv"
-    # @invoices = CSV.open(filepath,
-    #                       headers: true,
-    #                       header_converters: :symbol)
+    @customer_repository =
+      CustomerRepository.new("#{@filepath}/customers.csv", self)
+    @invoice_repository =
+      InvoiceRepository.new("#{@filepath}/invoices.csv", self)
+    @merchant_repository =
+      MerchantRepository.new("#{@filepath}/merchants.csv", self)
+    @invoice_item_repository =
+      InvoiceItemRepository.new("#{@filepath}/invoice_items.csv", self)
+    @item_repository =
+      ItemRepository.new("#{@filepath}/items.csv", self)
+    @transaction_repository =
+      TransactionRepository.new("#{@filepath}/transactions.csv", self)
   end
 
 
@@ -99,5 +90,8 @@ class SalesEngine
 
   def new_charge(card_info, id)
     transaction_repository.new_charge(card_info, id)
+  end
+
+  def startup
   end
 end

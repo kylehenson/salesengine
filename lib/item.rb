@@ -32,15 +32,6 @@ class Item
   def best_day
     maximum_item = invoice_items.max_by { |invoice_item| invoice_item.quantity }
     maximum_item.invoice.created_at
-    # quantities = []
-    # created_ats = []
-    # invoice_items.each do |invoice_item|
-    #   quantities  << invoice_item.quantity
-    #   created_ats << invoice_item.invoice.created_at
-    # end
-    # quantities_and_dates = Hash[quantities.zip(created_ats)]
-    # binding.pry
-    # quantities_and_dates.sort.pop[1]
   end
 
   def successful_invoice_items
@@ -48,12 +39,16 @@ class Item
   end
 
   def total_item_revenue
-    revenues = successful_invoice_items.map { |invoice_item| invoice_item.revenue }
+    revenues = successful_invoice_items.map do |invoice_item|
+      invoice_item.revenue
+    end
     revenues.reduce(:+)
   end
 
   def total_item_quantity
-    quantities = successful_invoice_items.map { |invoice_item| invoice_item.quantity }
+    quantities = successful_invoice_items.map do |invoice_item|
+       invoice_item.quantity
+     end
     quantities.reduce(:+)
   end
 

@@ -97,4 +97,19 @@ class InvoiceRepositoryTest < Minitest::Test
     invoice_repo = InvoiceRepository.new('./test/support/customers.csv', nil)
     assert_equal [], invoice_repo.find_all_by_id(10)
   end
+
+  def test_invoice_repo_has_a_create_method
+    engine = SalesEngine.new('./test/support')
+    invoice_repo = engine.invoice_repository
+    assert invoice_repo.respond_to?(:create)
+  end
+
+  def test_new_charge_creates_a_new_transaction
+    engine = SalesEngine.new('./test/support')
+    invoice_repo = engine.invoice_repository
+    prior_transactions = engine.transaction_repository.transactions.count
+    invoice_repo.invoices.first.charge(credit_card_number: "4444333322221111", credit_card_expiration: "10/13", result: "success")
+    current_transactions = engine.transaction_repository.transactions.count
+    assert current_transactions > prior_transactions
+  end
 end

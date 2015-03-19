@@ -17,7 +17,6 @@ class InvoiceParserTest < Minitest::Test
     file_name = "./test/support/invoices.csv"
     parser = InvoiceParser.new(file_name)
     refute_equal nil, parser
-    #ask someone how to test this
   end
 
 

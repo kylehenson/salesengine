@@ -73,5 +73,16 @@ class CustomerIntegrationTest < Minitest::Test
     assert_equal Array, customer.transactions.class
     refute customer.transactions.empty?
   end
+
+  def favorite_merchant
+    customer = engine.customer_repository.customers[0]
+    assert Merchant, customer.favorite_merchant.class
+  end
+
+  def test_successful_invoices
+    customer = engine.customer_repository.customers[0]
+    assert_equal Array, customer.successful_invoices.class
+    refute customer.successful_invoices.any? { |invoice| invoice.success? == false }
+  end
 end
 end

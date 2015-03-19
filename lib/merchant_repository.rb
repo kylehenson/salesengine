@@ -63,23 +63,35 @@ class MerchantRepository
   end
 
   def most_revenue(x)
-     merchants_sorted_by_revenue = merchants.sort_by { |merchant| merchant.total_merchant_revenue }
+     merchants_sorted_by_revenue = merchants.sort_by do |merchant|
+        merchant.total_merchant_revenue
+      end
      merchants_sorted_by_revenue.reverse.first(x)
    end
 
    def most_items(x)
-     merchants_sorted_by_items = merchants.sort_by { |merchant| merchant.total_merchant_items }
+     merchants_sorted_by_items = merchants.sort_by do |merchant|
+        merchant.total_merchant_items
+      end
      merchants_sorted_by_items.reverse.first(x)
    end
 
    def revenue(date)
-     successful_invoices = merchants.flat_map { |merchant| merchant.successful_invoices }
-     successful_invoices_for_date = successful_invoices.select { |invoice| invoice.created_at == date }
-     successful_invoice_items = successful_invoices_for_date.flat_map { |invoice| invoice.invoice_items}
-     revenues = successful_invoice_items.map {|invoice_item| invoice_item.revenue}
+     successful_invoices = merchants.flat_map do |merchant|
+        merchant.successful_invoices
+      end
+     successful_invoices_for_date = successful_invoices.select do |invoice|
+        invoice.created_at == date
+      end
+     successful_invoice_items = successful_invoices_for_date.flat_map do |invoice|
+       invoice.invoice_items
+     end
+     revenues = successful_invoice_items.map do |invoice_item|
+       invoice_item.revenue
+     end
      BigDecimal.new(revenues.reduce(:+))/100
    end
-   
+
   private
 
   def find_by_attribute(attribute, given)
